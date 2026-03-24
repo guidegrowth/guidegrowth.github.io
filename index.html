@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Transform Your Life — Health & Fitness Guides</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Variables ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g1: #0f2012;
+  --g2: #1a3a1e;
+  --g3: #2E7D32;
+  --g4: #43A047;
+  --g5: #A5D6A7;
+  --g6: #E8F5E9;
+  --accent: #FF6D00;
+  --accent2: #FFB300;
+  --white: #FAFDF9;
+  --ink: #0D1F0E;
+  --muted: #6B8F6E;
+  --card-bg: #ffffff;
+  --border: #C8E6C9;
+  --shadow: 0 4px 24px rgba(15,32,18,0.10);
+  --radius: 18px;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--g6);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Sticky Hero CTA Banner ── */
+#sticky-cta {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--g1);
+  border-bottom: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 20px;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+}
+#sticky-cta.visible { transform: translateY(0); }
+#sticky-cta .label {
+  color: var(--g5);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+#sticky-cta .label strong { color: var(--white); }
+#sticky-cta .cta-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 8px 22px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.15s;
+}
+#sticky-cta .cta-btn:hover { background: #e65100; transform: scale(1.04); }
+#sticky-cta .price-tag {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent2);
+  font-weight: 500;
+}
+
+/* ── Nav ── */
+nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px;
+  background: transparent;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--g3);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--g3); }
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 60px 48px 80px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--g1) 0%, var(--g2) 60%, #1e4620 100%);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 70% at 80% 50%, rgba(67,160,71,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(255,109,0,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(165,214,167,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(165,214,167,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+.hero-left { position: relative; z-index: 2; }
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(165,214,167,0.1);
+  border: 1px solid rgba(165,214,167,0.2);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--g5);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.5; transform:scale(1.4); }
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--g4);
+  position: relative;
+}
+.hero h1 em::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -4px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.hero-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--g5);
+  max-width: 460px;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 32px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+  box-shadow: 0 8px 24px rgba(255,109,0,0.35);
+}
+.btn-primary:hover { background: #e65100; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,109,0,0.45); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--g5);
+  border: 1.5px solid rgba(165,214,167,0.3);
+  border-radius: 50px;
+  padding: 16px 28px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--g4); color: var(--white); }
+.hero-price-note {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 16px;
+}
+.hero-price-note strong { color: var(--accent2); }
+
+/* Hero Right — Big product card */
+.hero-right {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(165,214,167,0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(67,160,71,0.15), transparent 70%);
+}
+.hero-card-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+.hero-card h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero-card .sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.hero-card-features { list-style: none; margin-bottom: 28px; }
+.hero-card-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--g5);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(165,214,167,0.07);
+}
+.hero-card-features li:last-child { border: none; }
+.hero-card-features li .ic {
+  color: var(--g4);
+  font-size: 15px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.hero-price-block {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.hero-price {
+  font-family: var(--font-mono);
+  font-size: 42px;
+  font-weight: 500;
+  color: var(--accent2);
+}
+.hero-price-old {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.hero-price-label { font-size: 12px; color: var(--muted); }
+.hero-dl-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--g3), var(--g4));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 20px rgba(46,125,50,0.35);
+}
+.hero-dl-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(46,125,50,0.45); }
+
+/* Stats Row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  background: var(--g1);
+  border-top: 1px solid rgba(165,214,167,0.08);
+  border-bottom: 1px solid rgba(165,214,167,0.08);
+}
+.stat {
+  padding: 32px 24px;
+  text-align: center;
+  border-right: 1px solid rgba(165,214,167,0.08);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--g4);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ── Section Common ── */
+section { padding: 80px 48px; }
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--g3);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.section-sub { font-size: 16px; color: var(--muted); line-height: 1.65; max-width: 540px; }
+
+/* ── Free Guide Section ── */
+.free-section {
+  background: linear-gradient(135deg, var(--g3) 0%, var(--g2) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.free-section::before {
+  content: 'FREE';
+  position: absolute;
+  right: -30px; top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--font-display);
+  font-size: 160px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.03);
+  letter-spacing: -0.05em;
+  pointer-events: none;
+  user-select: none;
+}
+.free-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.free-text .section-label { color: var(--accent2); }
+.free-text .section-title { color: var(--white); }
+.free-text .section-sub { color: var(--g5); }
+.free-features { list-style: none; margin: 28px 0 36px; }
+.free-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--g5);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(165,214,167,0.1);
+}
+.free-features li:last-child { border: none; }
+.free-features li span { color: var(--accent2); font-size: 16px; }
+.free-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 36px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+.free-card-emoji { font-size: 64px; margin-bottom: 16px; display: block; }
+.free-card h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.free-card p { font-size: 13px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+.btn-free {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent2);
+  color: var(--g1);
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.btn-free:hover { background: #ffa000; transform: translateY(-2px); }
+.free-card .free-tag {
+  display: inline-block;
+  background: rgba(255,179,0,0.15);
+  color: var(--accent2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: 1px solid rgba(255,179,0,0.3);
+  margin-bottom: 16px;
+}
+
+/* ── Category Guides ── */
+.categories-section { background: var(--white); }
+.categories-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.cat-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(.22,1,.36,1);
+  cursor: default;
+}
+.cat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--g3), var(--g4));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.cat-card:hover { border-color: var(--g4); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(46,125,50,0.12); }
+.cat-card:hover::before { opacity: 1; }
+.cat-emoji { font-size: 40px; margin-bottom: 16px; display: block; }
+.cat-badge {
+  display: inline-block;
+  background: var(--g6);
+  color: var(--g3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 50px;
+  margin-bottom: 12px;
+}
+.cat-card h3 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.cat-card p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+.cat-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cat-price {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--g3);
+}
+.cat-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--g3);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 9px 20px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.cat-dl-btn:hover { background: var(--g4); transform: translateY(-1px); }
+
+/* ── Pro Guide CTA — the fixed bottom floating bar ── */
+#pro-float {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120px);
+  z-index: 999;
+  transition: transform 0.5s cubic-bezier(.22,1,.36,1);
+  width: min(700px, 92vw);
+}
+#pro-float.visible { transform: translateX(-50%) translateY(0); }
+.pro-float-inner {
+  background: var(--g1);
+  border: 1.5px solid rgba(165,214,167,0.2);
+  border-radius: 20px;
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(165,214,167,0.05);
+  backdrop-filter: blur(20px);
+  flex-wrap: wrap;
+}
+.pro-float-text .eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--accent2);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.pro-float-text h4 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--white);
+  font-weight: 900;
+}
+.pro-float-text span { font-size: 12px; color: var(--muted); }
+.pro-float-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.pro-float-price {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  color: var(--accent2);
+  font-weight: 500;
+}
+.pro-float-old {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.pro-float-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--accent), #e65100);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 13px 24px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(255,109,0,0.4);
+  letter-spacing: 0.02em;
+}
+.pro-float-btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 10px 28px rgba(255,109,0,0.55); }
+.pro-float-close {
+  position: absolute;
+  top: -10px; right: -10px;
+  width: 26px; height: 26px;
+  background: var(--g2);
+  border: 1px solid rgba(165,214,167,0.2);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+.pro-float-close:hover { color: var(--white); }
+#pro-float { position: fixed; }
+
+/* ── Pro Guide Full Section ── */
+#pro-section {
+  background: linear-gradient(135deg, var(--g1) 0%, #0d1f10 100%);
+  position: relative;
+  overflow: hidden;
+}
+#pro-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(67,160,71,0.12), transparent 60%);
+  pointer-events: none;
+}
+.pro-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.pro-text .section-label { color: var(--accent); }
+.pro-text .section-title { color: var(--white); }
+.pro-text .section-sub { color: var(--g5); margin-bottom: 32px; }
+.pro-features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+.pro-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(165,214,167,0.08);
+  border-radius: 12px;
+}
+.pro-feature .ic { font-size: 20px; flex-shrink: 0; }
+.pro-feature-text { font-size: 12px; color: var(--g5); line-height: 1.5; }
+.pro-feature-text strong { color: var(--white); font-size: 13px; display: block; margin-bottom: 2px; }
+.pro-price-card {
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(165,214,167,0.15);
+  border-radius: 24px;
+  padding: 44px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.pro-price-card::before {
+  content: '⭐ BEST VALUE';
+  position: absolute;
+  top: 20px; right: -28px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 5px 40px;
+  transform: rotate(45deg);
+}
+.pro-price-card h3 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.pro-price-card .tagline { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+.big-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.big-price .amount {
+  font-family: var(--font-mono);
+  font-size: 64px;
+  color: var(--accent2);
+  line-height: 1;
+}
+.big-price .old {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.save-badge {
+  display: inline-block;
+  background: rgba(255,179,0,0.15);
+  border: 1px solid rgba(255,179,0,0.3);
+  color: var(--accent2);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 50px;
+  margin-bottom: 28px;
+  letter-spacing: 0.06em;
+}
+.pro-includes { list-style: none; margin-bottom: 28px; text-align: left; }
+.pro-includes li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--g5);
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(165,214,167,0.06);
+}
+.pro-includes li:last-child { border: none; }
+.pro-includes li .chk { color: var(--g4); font-size: 15px; }
+.btn-pro-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent), #e65100);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 18px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 24px rgba(255,109,0,0.4);
+}
+.btn-pro-main:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(255,109,0,0.55); }
+.btn-pro-main .arrow { font-size: 18px; }
+.secure-note { font-size: 11px; color: var(--muted); margin-top: 12px; letter-spacing: 0.03em; }
+
+/* ── Testimonials ── */
+.testimonials { background: var(--g6); }
+.testimonials-header { text-align: center; margin-bottom: 48px; }
+.testimonials-header .section-sub { margin: 0 auto; }
+.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.testi-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: transform 0.3s;
+}
+.testi-card:hover { transform: translateY(-3px); }
+.stars { color: var(--accent2); font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
+.testi-text { font-size: 14px; color: var(--ink); line-height: 1.65; margin-bottom: 18px; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g3), var(--g4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.testi-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+.testi-role { font-size: 11px; color: var(--muted); }
+
+/* ── Footer ── */
+footer {
+  background: var(--g1);
+  padding: 48px;
+  border-top: 1px solid rgba(165,214,167,0.08);
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--g4);
+  font-weight: 700;
+}
+.footer-logo span { color: var(--accent); }
+.footer-copy { font-size: 12px; color: var(--muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--g4); }
+
+/* ── Animations ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  nav { padding: 18px 24px; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 40px 24px 60px; min-height: auto; gap: 40px; }
+  .stats-row { grid-template-columns: repeat(2,1fr); }
+  section { padding: 56px 24px; }
+  .free-inner, .pro-inner { grid-template-columns: 1fr; gap: 36px; }
+  .cat-grid { grid-template-columns: repeat(2,1fr); }
+  .testi-grid { grid-template-columns: 1fr; }
+  .pro-features-grid { grid-template-columns: 1fr; }
+  .categories-header { flex-direction: column; align-items: flex-start; }
+  footer { padding: 32px 24px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  #sticky-cta { gap: 10px; padding: 8px 16px; }
+  #sticky-cta .label { font-size: 11px; }
+}
+@media (max-width: 600px) {
+  .cat-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2,1fr); }
+  .hero h1 { font-size: 36px; }
+  .pro-float-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .big-price .amount { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Sticky Top CTA (appears on scroll) ── -->
+<div id="sticky-cta">
+  <div class="label"><strong>Complete Pro Guide</strong> — All categories + 12-Week Plan</div>
+  <span class="price-tag">₹49 only</span>
+  <a href="#pro-section" class="cta-btn" onclick="handleProDownload(event)">⬇ Get Pro Guide</a>
+</div>
+
+<!-- ── Nav ── -->
+<nav>
+  <div class="nav-logo">Transform<span>.</span>Life</div>
+  <ul class="nav-links">
+    <li><a href="#free-guide">Free Guide</a></li>
+    <li><a href="#categories">Category Guides</a></li>
+    <li><a href="#pro-section">Pro Guide</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero" id="top">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Health &amp; Fitness Series</div>
+    <h1>The Complete<br/><em>Lifestyle</em><br/>Transformation</h1>
+    <p class="hero-desc">
+      Science-backed health &amp; fitness guides for every body, every age,
+      and every life situation. Start free. Go deeper when you're ready.
+    </p>
+    <div class="hero-actions">
+      <a href="#free-guide" class="btn-primary">🎁 Get Free Guide</a>
+      <a href="#categories" class="btn-secondary">Explore All Guides →</a>
+    </div>
+    <p class="hero-price-note">Free starter guide available · Category guides from <strong>₹29</strong> · Full pro guide <strong>₹49</strong></p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <span class="hero-card-badge">⭐ Most Popular</span>
+      <h2>Complete Pro Guide</h2>
+      <p class="sub">Everything in one comprehensive guide</p>
+      <ul class="hero-card-features">
+        <li><span class="ic">✓</span> 9 chapters · 60+ pages</li>
+        <li><span class="ic">✓</span> All 6 life category plans</li>
+        <li><span class="ic">✓</span> 12-Week transformation program</li>
+        <li><span class="ic">✓</span> Nutrition, sleep &amp; mindset system</li>
+        <li><span class="ic">✓</span> Age-specific fitness plans</li>
+      </ul>
+      <div class="hero-price-block">
+        <span class="hero-price">₹49</span>
+        <span class="hero-price-old">₹299</span>
+      </div>
+      <span class="hero-price-label">One-time · Instant PDF download</span>
+      <br/><br/>
+      <a href="#" class="hero-dl-btn" onclick="handleProDownload(event)">⬇ Download Now — ₹49</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats ── -->
+<div class="stats-row">
+  <div class="stat"><div class="stat-num">8</div><div class="stat-label">Guides Available</div></div>
+  <div class="stat"><div class="stat-num">60+</div><div class="stat-label">Pages in Pro Guide</div></div>
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">Life Categories</div></div>
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">Week Program</div></div>
+</div>
+
+<!-- ── Free Guide ── -->
+<section class="free-section" id="free-guide">
+  <div class="free-inner">
+    <div class="free-text">
+      <div class="section-label">Start Here — No Cost</div>
+      <h2 class="section-title">Get the Free<br/>Starter Guide</h2>
+      <p class="section-sub">
+        Not sure where to begin? Download our free guide — packed with
+        foundational nutrition rules, a beginner workout plan, mindset
+        principles, and your first-week action plan. No strings attached.
+      </p>
+      <ul class="free-features">
+        <li><span>🥗</span> Nutrition basics &amp; the Healthy Plate method</li>
+        <li><span>💪</span> Beginner weekly workout plan</li>
+        <li><span>🧠</span> Mindset foundations &amp; habit building</li>
+        <li><span>📋</span> 7-day action plan to start immediately</li>
+        <li><span>📄</span> 4 pillars of lifestyle transformation</li>
+      </ul>
+      <a href="#" class="btn-free" onclick="handleFreeDownload(event)">⬇ Download Free Guide</a>
+    </div>
+    <div class="free-card">
+      <span class="free-card-emoji">🎁</span>
+      <span class="free-tag">100% Free</span>
+      <h3>Transform Your Life<br/>Starter Guide</h3>
+      <p>The perfect introduction to health &amp; fitness. Covers all 4 pillars with practical, actionable steps you can start today.</p>
+      <a href="#" class="btn-free" onclick="handleFreeDownload(event)">⬇ Free Download</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Category Guides ── -->
+<section class="categories-section" id="categories">
+  <div class="categories-header">
+    <div>
+      <div class="section-label">Targeted Guides · ₹29 Each</div>
+      <h2 class="section-title">Choose Your Category</h2>
+      <p class="section-sub">Each guide is tailored specifically to your lifestyle. Pick the one that fits your life.</p>
+    </div>
+  </div>
+
+  <div class="cat-grid">
+
+    <div class="cat-card fade-up">
+      <span class="cat-emoji">💼</span>
+      <span class="cat-badge">Busy Professionals</span>
+      <h3>Health &amp; Fitness for Busy Professionals</h3>
+      <p>20-min workouts, Sunday meal prep system, stress reset techniques, and a daily professional wellness plan.</p>
+      <div class="cat-card-footer">
+        <span class="cat-price">₹29</span>
+        <a href="#" class="cat-dl-btn" onclick="handleCatDownload(event, 'Busy Professionals')">⬇ Download</a>
+      </div>
+    </div>
+
+    <div class="cat-card fade-up">
+      <span class="cat-emoji">🏠</span>
+      <span class="cat-badge">Stay-at-Home Parents</span>
+      <h3>Health &amp; Fitness for Stay-at-Home Parents</h3>
+      <p>Nap-time workouts, family-friendly meals, kid-friendly exercise ideas, and practical energy management.</p>
+      <div class="cat-card-footer">
+        <span class="cat-price">₹29</span>
+        <a href="#" class="cat-dl-btn" onclick="handleCatDownload(event, 'Parents')">⬇ Download</a>
+      </div>
+    </div>
+
+    <div class="cat-card fade-up">
+      <span class="cat-emoji">🏋️</span>
+      <span class="cat-badge">Athletes</span>
+      <h3>Performance Guide for Athletes</h3>
+      <p>Periodization, performance nutrition, recovery protocols, and mental performance techniques for competitors.</p>
+      <div class="cat-card-footer">
+        <span class="cat-price">₹29</span>
+        <a href="#" class="cat-dl-btn" onclick="handleCatDownload(event, 'Athletes')">⬇ Download</a>
+      </div>
+    </div>
+
+    <div class="cat-card fade-up">
+      <span class="cat-emoji">🧓</span>
+      <span class="cat-badge">Seniors 60+</span>
+      <h3>Health &amp; Vitality for Seniors 60+</h3>
+      <p>Chair-based exercises, balance training, bone-density nutrition, and social wellness for thriving after 60.</p>
+      <div class="cat-card-footer">
+        <span class="cat-price">₹29</span>
+        <a href="#" class="cat-dl-btn" onclick="handleCatDownload(event, 'Seniors')">⬇ Download</a>
+      </div>
+    </div>
+
+    <div class="cat-card fade-up">
+      <span class="cat-emoji">🎓</span>
+      <span class="cat-badge">Students</span>
+      <h3>Health &amp; Fitness for Students</h3>
+      <p>No-gym workouts, budget nutrition under ₹150/day, exam stress management, and sleep optimization tips.</p>
+      <div class="cat-card-footer">
+        <span class="cat-price">₹29</span>
+        <a href="#" class="cat-dl-btn" onclick="handleCatDownload(event, 'Students')">⬇ Download</a>
+      </div>
+    </div>
+
+    <div class="cat-card fade-up">
+      <span class="cat-emoji">🩺</span>
+      <span class="cat-badge">Health Conditions</span>
+      <h3>Fitness &amp; Wellness With Health Conditions</h3>
+      <p>Safe exercise guidelines, anti-inflammatory nutrition, and condition-specific guidance for diabetes, BP &amp; more.</p>
+      <div class="cat-card-footer">
+        <span class="cat-price">₹29</span>
+        <a href="#" class="cat-dl-btn" onclick="handleCatDownload(event, 'Health Conditions')">⬇ Download</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Pro Guide Full Section ── -->
+<section id="pro-section">
+  <div class="pro-inner">
+    <div class="pro-text">
+      <div class="section-label">Complete Package — Best Value</div>
+      <h2 class="section-title" style="color:var(--white)">The Pro Guide<br/>Has Everything</h2>
+      <p class="section-sub">One guide. All categories. A complete 12-week program. Every tool you need to transform your life — permanently.</p>
+      <div class="pro-features-grid">
+        <div class="pro-feature">
+          <span class="ic">📖</span>
+          <div class="pro-feature-text">
+            <strong>9 Full Chapters</strong>
+            60+ pages of comprehensive, structured content
+          </div>
+        </div>
+        <div class="pro-feature">
+          <span class="ic">🗓️</span>
+          <div class="pro-feature-text">
+            <strong>12-Week Program</strong>
+            Foundation → Build → Peak progression
+          </div>
+        </div>
+        <div class="pro-feature">
+          <span class="ic">🍽️</span>
+          <div class="pro-feature-text">
+            <strong>Nutrition System</strong>
+            Macros, meal timing &amp; anti-inflammatory eating
+          </div>
+        </div>
+        <div class="pro-feature">
+          <span class="ic">🧠</span>
+          <div class="pro-feature-text">
+            <strong>Mental Wellness</strong>
+            Sleep, stress, mindset &amp; habit building
+          </div>
+        </div>
+        <div class="pro-feature">
+          <span class="ic">👥</span>
+          <div class="pro-feature-text">
+            <strong>All 6 Categories</strong>
+            Every life situation covered in one guide
+          </div>
+        </div>
+        <div class="pro-feature">
+          <span class="ic">📈</span>
+          <div class="pro-feature-text">
+            <strong>Plateau Breakers</strong>
+            Long-term sustainability strategies
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pro-price-card">
+      <h3>Complete Pro Guide</h3>
+      <p class="tagline">Transform Your Life — All Inclusive</p>
+      <div class="big-price">
+        <span class="amount">₹49</span>
+        <span class="old">₹299</span>
+      </div>
+      <span class="save-badge">Save ₹250 — 83% OFF</span>
+      <ul class="pro-includes">
+        <li><span class="chk">✓</span> Complete 60+ page guide</li>
+        <li><span class="chk">✓</span> 12-Week transformation plan</li>
+        <li><span class="chk">✓</span> All 6 life category plans</li>
+        <li><span class="chk">✓</span> Age-specific fitness programs</li>
+        <li><span class="chk">✓</span> Nutrition &amp; sleep optimization</li>
+        <li><span class="chk">✓</span> Mental wellness system</li>
+        <li><span class="chk">✓</span> Instant PDF download</li>
+        <li><span class="chk">✓</span> One-time payment, yours forever</li>
+      </ul>
+      <a href="#" class="btn-pro-main" onclick="handleProDownload(event)">
+        ⬇ Download Pro Guide — ₹49 <span class="arrow">→</span>
+      </a>
+      <p class="secure-note">🔒 Instant delivery · Digital PDF · One-time payment</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section class="testimonials">
+  <div class="testimonials-header">
+    <div class="section-label">What People Say</div>
+    <h2 class="section-title">Real Results, Real People</h2>
+    <p class="section-sub">Thousands of readers have already started their transformation journey.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"I'm a software engineer working 10+ hours a day. The Busy Professionals guide completely changed how I think about health. The 20-minute workouts are actually doable!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👨</div>
+        <div>
+          <div class="testi-name">Arjun M.</div>
+          <div class="testi-role">Software Engineer, Bangalore</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"The Pro Guide is incredible value for ₹49. I've spent thousands on gym trainers who gave me less practical information than this guide."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👩</div>
+        <div>
+          <div class="testi-name">Priya S.</div>
+          <div class="testi-role">Teacher, Chennai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"As a 65-year-old with knee problems, I thought fitness wasn't for me. The Seniors guide showed me how wrong I was. The chair exercises changed my life."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👴</div>
+        <div>
+          <div class="testi-name">Rajesh K.</div>
+          <div class="testi-role">Retired, Hyderabad</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Transform<span>.</span>Life</div>
+    <div class="footer-copy">© 2025 Transform Your Life · Health &amp; Fitness Guides</div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Floating Pro CTA (bottom) ── -->
+<div id="pro-float">
+  <div class="pro-float-inner" style="position:relative;">
+    <div class="pro-float-text">
+      <div class="eyebrow">⭐ Complete Package</div>
+      <h4>Pro Guide — All 6 Categories + 12-Week Plan</h4>
+      <span>Everything you need in one comprehensive guide</span>
+    </div>
+    <div class="pro-float-right">
+      <div>
+        <div class="pro-float-old">₹299</div>
+        <div class="pro-float-price">₹49</div>
+      </div>
+      <a href="#pro-section" class="pro-float-btn" onclick="handleProDownload(event)">⬇ Get It Now</a>
+    </div>
+    <div class="pro-float-close" onclick="dismissFloat()" title="Dismiss">✕</div>
+  </div>
+</div>
+
+<script>
+// ── Scroll behaviours ──────────────────────────────────────────────────────
+const stickyCta  = document.getElementById('sticky-cta');
+const proFloat   = document.getElementById('pro-float');
+const proSection = document.getElementById('pro-section');
+let floatDismissed = false;
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const heroH   = document.querySelector('.hero').offsetHeight;
+
+  // Sticky top bar — show after hero
+  if (scrollY > heroH * 0.6) {
+    stickyCta.classList.add('visible');
+  } else {
+    stickyCta.classList.remove('visible');
+  }
+
+  // Floating bottom bar — show after hero, hide once pro section is in view
+  if (!floatDismissed) {
+    const proRect = proSection.getBoundingClientRect();
+    const inProView = proRect.top < window.innerHeight * 0.5;
+    if (scrollY > heroH * 0.4 && !inProView) {
+      proFloat.classList.add('visible');
+    } else {
+      proFloat.classList.remove('visible');
+    }
+  }
+});
+
+function dismissFloat() {
+  floatDismissed = true;
+  proFloat.classList.remove('visible');
+}
+
+// ── Fade-up on scroll ──────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── Download Handlers ─────────────────────────────────────────────────────
+// Replace the href values below with your actual Monetag redirect links.
+// Pattern: Monetag ad link → on completion → your actual PDF link
+
+function handleFreeDownload(e) {
+  e.preventDefault();
+  // TODO: Replace with your Monetag link for the free guide
+  // window.open('YOUR_MONETAG_LINK_FREE', '_blank');
+  alert('🎁 Free Guide Download\n\nReplace this with your Monetag link!\nPattern: Monetag Ad → Redirect to PDF');
+}
+
+function handleProDownload(e) {
+  e.preventDefault();
+  // TODO: Replace with your Monetag link + payment link for pro guide
+  // window.open('YOUR_MONETAG_LINK_PRO', '_blank');
+  alert('⭐ Pro Guide — ₹49\n\nReplace this with your payment + Monetag link!\nPattern: Payment → Monetag Ad → PDF download');
+}
+
+function handleCatDownload(e, category) {
+  e.preventDefault();
+  // TODO: Replace with your Monetag link for each category guide
+  // window.open('YOUR_MONETAG_LINK_' + category, '_blank');
+  alert(`📘 ${category} Guide — ₹29\n\nReplace this with your Monetag + payment link for this category!`);
+}
+</script>
+</body>
+</html>
